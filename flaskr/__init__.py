@@ -26,4 +26,9 @@ def create_app(test_config = None):
     def hello():
         return 'Hello, World!'
 
+    # include the database
+
+    from . import db
+    db.init_app(app)
+
     return app

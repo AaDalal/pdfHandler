@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1 class = "text-center">{% block title %}Upload{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data" class = "row row-cols-2 g-3"> <!-- NOTE:could include the to edit redirect here... -->
+    <div class = "col">  
+      <input type = "file" id = "file" class = "form-control" name = "file" accept = ".pdf" multiple>
+    </div>
+    <div class = "col">
+      <button type = "submit" class = "btn btn-primary">Upload your files!</button>
+    </div>
+  </form>
+{% endblock %}

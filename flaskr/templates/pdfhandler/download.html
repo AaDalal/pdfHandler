@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1 class = "text-center">{% block title %}Download{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <H1>Hello</H1>
+  <embed src="{{ url_for('upload', file_name = file_name, user_id = user_id) }}" class = "w-100" height = "700 px" type="application/pdf">
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1 class = "text-center">{% block title %}Edit{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<button id = "submit" type = "button" class = "btn btn-primary" onclick="sendPostRequest('{{ url_for('pdfhandler.edit') }}')">Submit</button>
+<div class = "row row-cols-3">
+  {% for image_names in all_image_names %} <!-- NOTE: because all_image_names is a dictionary, get values here -->
+    <div class = "col">
+      {% for image_name in image_names %}
+          <div class="card mb-2">
+            <img src="{{ url_for('upload', file_name = image_name, user_id = user_id) }}" class = "card-img w-100"></img>
+            <div class="card-img-overlay" style="background-color: rgba(0, 0, 0, 0.2);">
+              <div class = "card-body row">
+                <div class = "col-4">
+                  <div class="card-text bg-dark rounded-1 text-center">
+                    <p class="text-white px-1">{{ loop.index }}</p>
+                  </div>
+                </div>
+                <div class = "col-8">
+                  <button class = "btn btn-outline-dark" id = "{{ image_name }}" type = "button" onclick = "orderedSelect(this)">Select</button>
+                </div>
+              </div>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
+<script src = {{ url_for('static', filename = "pdfhandler_edit.js") }}></script>
+{% endblock %}

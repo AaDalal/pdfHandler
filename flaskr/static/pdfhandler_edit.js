@@ -11,10 +11,7 @@ function orderedSelect(buttonObject) {
 
     if (typeof globalThis.selectedFiles === "undefined") { //|| (!(globalThis.selectedFiles.isArray))) {
         globalThis.selectedFiles = [];
-        console.log(globalThis.selectedFiles.isArray)
     }
-
-    console.log(globalThis.selectedFiles);
 
     // -- ADD/SUBTRACT TO GLOBAL ARRAY
     var index = globalThis.selectedFiles.indexOf(id);
@@ -27,8 +24,6 @@ function orderedSelect(buttonObject) {
         buttonObject.innerHTML = "Select";
     }
 
-    console.log(globalThis.selectedFiles);
-
     // -- CHANGE THE CLASSES OF THE OBJECT
     buttonObject.classList.toggle('btn-outline-dark');
     buttonObject.classList.toggle('btn-primary');
@@ -37,6 +32,14 @@ function orderedSelect(buttonObject) {
 function sendPostRequest(url){
     // XXX: need to handle when selectedFiles is empty
     var xhr = new XMLHttpRequest();
+
+    // -- HANDLE THE RESPONSE (bc the browser does not properly redirect pages that originate from XHR)
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            window.location = xhr.responseURL // XXX: Why does this work so well??
+        }
+    }
+
     xhr.open("POST", url, true); // NOTE: async is set to true
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(globalThis.selectedFiles));

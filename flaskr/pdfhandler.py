@@ -142,7 +142,7 @@ def edit():
         return redirect(url_for('pdfhandler.download'))
 
     # -- CONFIGURABLE
-    image_width = 500
+    image_width = 250
     
     if not session.get('pdf_names'):
         flash("Upload a file before you try to edit")
@@ -175,9 +175,10 @@ def download():
     # -- GET PDF NAMES + PG #S
     pdfs_information = {}
     
-    regex = re.compile('-(\d).jpg$') # Get the image file stem and the page number. NOTE: This is jpg (jpeg) specific
+    regex = re.compile('-(\d+).jpg$') # Get the image file stem and the page number. NOTE: This is jpg (jpeg) specific
     for page in session.get('selected_pages'):
-
+        print(page)
+        print(re.split(regex, page))
         image_file_stem, page_number = re.split(regex, page)[:2]
         
         # Search for the image_file_stem

@@ -23,7 +23,9 @@ def close_db(e=None):
 def init_db():
     db = get_db()
 
+    # NOTE: need to run flask init-db to actually get it to work (why?)
     with current_app.open_resource('schema.sql') as f:
+        print('Reached schema read')
         db.executescript(f.read().decode('utf8'))
 
 @click.command('init-db')
